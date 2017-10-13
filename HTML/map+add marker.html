@@ -28,7 +28,7 @@
   function initMap() {
     var california = {lat: 52.359311, lng: 4.909318};
     map = new google.maps.Map(document.getElementById('map'), {
-      center: california,
+      center: amsterdam,
       zoom: 17,
       gestureHandling: 'cooperative'
     });
@@ -47,12 +47,13 @@
         map: map
       });
 
-
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
       });
     });
   }
+
+  
 
   function saveData() {
     var name = escape(document.getElementById('name').value);
