@@ -1,36 +1,92 @@
 <html lang="en">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-	<link rel="stylesheet" href="style.css">
-	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-</head>
-<body>
-	<!-- content gaat vanaf hier --> 
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<!-- START-COMP: L-Linkbar -->
-		<header id="mainHeader" class="mdl-layout__header">
-			<div class="mdl-layout__header-row">
-				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<div class="mdl-layout-spacer"></div>
-					<a class="mdl-navigation__link menuText" href="index.html">Home</a>
-					<a class="mdl-navigation__link menuText" href="elektrischefiets">Route</a>
-					<a class="mdl-navigation__link menuText" href="stadfiets.html">Beacons</a>
-					<a class="mdl-navigation__link menuText" href="transportfiets.html">Profile</a>
-					<div class="mdl-layout-spacer"></div>
-				</nav>
-				<div class="mdl-layout-spacer"></div>
-				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<a class="mdl-navigation__link" href="#"></a>
-					<a class="mdl-navigation__link" href="#"></a>
-				</nav>
-			</div>
-		</header>
-		
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </head>
+    <body>
+        <!-- content gaat vanaf hier --> 
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <!-- START-COMP: L-Linkbar -->
+            <header id="mainHeader" class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <div class="mdl-layout-spacer"></div>
+                        <a class="mdl-navigation__link menuText" href="index.html">Home</a>
+                        <a class="mdl-navigation__link menuText" href="map+add marker.html">Route</a>
+                        <a class="mdl-navigation__link menuText" href="stadfiets.html">Beacons</a>
+                        <a class="mdl-navigation__link menuText" href="transportfiets.html">Profile</a>
+                        <div class="mdl-layout-spacer"></div>
+                    </nav>
+                    <div class="mdl-layout-spacer"></div>
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <a class="mdl-navigation__link" href="#"></a>
+                        <a class="mdl-navigation__link" href="#"></a>
+                    </nav>
+
+                </div>
+            </header>
+            <div id="map"></div>
+            <div id="form">
+                <table>
+                    <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+                    <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
+                    <tr><td>Type:</td> <td><select id='type'> 
+                                <option value='bar' SELECTED>bar</option>
+                                <option value='restaurant'>restaurant</option>
+                            </select> </td></tr>
+                    <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+                </table>
+            </div>
+
+            <script>
+                var map;
+                var marker;
+                var infowindow;
+                var messagewindow;
+
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 16,
+                        center: new google.maps.LatLng(52.35840924, 4.9096334),
+                        mapTypeId: 'terrain',
+                        gestureHandling: 'cooperative'
+                    });
+
+                    infowindow = new google.maps.InfoWindow({
+                        content: document.getElementById('form')
+                    });
+
+                    map.addListener('center_changed', function () {
+                        // 3 seconds after the center of the map has changed, pan back to the
+                        // marker.
+                        window.setTimeout(function () {
+                            map.panTo(marker.getPosition());
+                        }, 100);
+                    });
+
+                    google.maps.event.addListener(map, 'click', function (event) {
+                        marker = new google.maps.Marker({
+                            position: event.latLng,
+                            map: map
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
+                        });
+                    });
+                }
+            </script>
+
+            <script async defer 
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdY-kyv5IseWrut2MfMYIjKVvGAm37ZWc&callback=initMap">
+            </script>
 
 
-	</div>
 
-</body>
+        </div>
+
+    </body>
 </html>
