@@ -5,10 +5,13 @@
  */
 package api.eyebeacon.resource;
 
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.codehaus.jackson.map.util.JSONPObject;
+
 
 /**
  * Retrive Beacon List
@@ -34,7 +37,14 @@ public class GetBeacons {
             sb.append("</ul><br />");
         }
         
+        for(Beacon beacon : beaconlist.getBeacons()) {
+            
+            
+            
+        }
+        
         beaconlist = null;
+        Beacon.resetId();
         
         return sb.toString();
     }

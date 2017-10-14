@@ -41,4 +41,8 @@ public class Beacon {
     public double getLongtitude() {
         return longtitude;
     }
+    
+    public static void resetId() {
+        idGenerator = 0;
+    }
 }
