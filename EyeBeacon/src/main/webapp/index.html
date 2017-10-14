@@ -33,6 +33,9 @@
 
             <script>
                 var marker;
+
+                
+
                 var locations = [
                     ['Wibautstraat 4', 52.360014, 4.908756],
                     ['Wibautstraat 8', 52.359419, 4.909093],
@@ -53,6 +56,23 @@
 
                     setHardcodedMarkers(map, locations);
 
+                    google.maps.event.addListener(map, 'click', function (event) {
+                        placeMarker(event.latLng);
+                    });
+
+                    function placeMarker(location) {
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+                        marker.setMap(map);
+                    }
+
+
+
+
+
+                    // 
 //                    infowindow = new google.maps.InfoWindow({
 //                        content: document.getElementById('form')
 //                    });
@@ -87,6 +107,10 @@
                         });
                         var infowindowContent = "Name: " + name + " \nLatitude: " + lat + " \nLongitude: " + long;
 
+                        //  var client = new HttpClient();
+                        //  client.get('http://it95.nl:8080/EyeBeacon-1.0/api/beacons', function (response) {
+                        //      infowindowContent = response;
+                        //  });
 
                         map.setCenter(marker.getPosition());
 
@@ -105,16 +129,10 @@
                     }
                 }
 
-                function placeMarker(location) {
-                    var marker = new google.maps.Marker({
-                        position: location,
-                        map: map,
-                    });
-                    var infowindow = new google.maps.InfoWindow({
-                        content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
-                    });
-                    infowindow.open(map, marker);
-                }
+
+
+
+
             </script>
 
             <script async defer 
