@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="css/style.css">
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </head>
-    <body>
+    <body onload="initialize()">
         <!-- content gaat vanaf hier --> 
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <!-- START-COMP: L-Linkbar -->
@@ -29,64 +29,97 @@
                 </div>
             </header>
             <div id="map"></div>
-            <div id="form">
-                <table>
-                    <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
-                    <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
-                    <tr><td>Type:</td> <td><select id='type'> 
-                                <option value='bar' SELECTED>bar</option>
-                                <option value='restaurant'>restaurant</option>
-                            </select> </td></tr>
-                    <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
-                </table>
-            </div>
+
 
             <script>
-                var map;
                 var marker;
-                var infowindow;
-                var messagewindow;
+                var locations = [
+                    ['Wibautstraat 4', 52.360014, 4.908756],
+                    ['Wibautstraat 8', 52.359419, 4.909093],
+                    ['Wibautstraat 3', 52.358628, 4.909593],
+                    ['Wibautstraat 7', 52.358815, 4.910468],
+                    ['Wibautstraat 13', 52.358077, 4.909910]
+                ];
 
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
+                function initialize() {
+                    var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
                         center: new google.maps.LatLng(52.35840924, 4.9096334),
-                        mapTypeId: 'terrain',
-                        gestureHandling: 'cooperative'
+                        //mapTypeId: 'terrain',
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        gestureHandling: 'cooperative',
+                        streetViewControl: false
                     });
 
-                    infowindow = new google.maps.InfoWindow({
-                        content: document.getElementById('form')
-                    });
+                    setHardcodedMarkers(map, locations);
 
-                    map.addListener('center_changed', function () {
-                        // 3 seconds after the center of the map has changed, pan back to the
-                        // marker.
-                        window.setTimeout(function () {
-                            map.panTo(marker.getPosition());
-                        }, 100);
-                    });
+//                    infowindow = new google.maps.InfoWindow({
+//                        content: document.getElementById('form')
+//                    });
+//
+//                    google.maps.event.addListener(map, 'click', function (event) {
+//                        marker = new google.maps.Marker({
+//                            position: event.latLng,
+//                            map: map
+//                        });
 
-                    google.maps.event.addListener(map, 'click', function (event) {
-                        marker = new google.maps.Marker({
-                            position: event.latLng,
-                            map: map
+//                        google.maps.event.addListener(marker, 'click', function () {
+//
+//                            infowindow.open(map, marker);
+//                        });
+//                    });
+                }
+
+                function setHardcodedMarkers(map, locations) {
+                    var marker, i;
+
+                    for (i = 0; i < locations.length; i++) {
+                        var name = locations[i][0];
+                        var lat = locations[i][1];
+                        var long = locations [i][2];
+
+                        latlngset = new google.maps.LatLng(lat, long);
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            title: name,
+                            position: latlngset
                         });
+                        var infowindowContent = "Name: " + name + " \nLatitude: " + lat + " \nLongitude: " + long;
 
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.open(map, marker);
-                        });
+
+                        map.setCenter(marker.getPosition());
+
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        google.maps.event.addListener(marker, 'click', (function (marker, infowindowContent, infowindow) {
+                            return function () {
+                                infowindow.setContent(infowindowContent);
+                                infowindow.open(map, marker);
+
+                            };
+                        })(marker, infowindowContent, infowindow));
+
+
+                    }
+                }
+
+                function placeMarker(location) {
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
                     });
+                    var infowindow = new google.maps.InfoWindow({
+                        content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+                    });
+                    infowindow.open(map, marker);
                 }
             </script>
 
             <script async defer 
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdY-kyv5IseWrut2MfMYIjKVvGAm37ZWc&callback=initMap">
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdY-kyv5IseWrut2MfMYIjKVvGAm37ZWc">
             </script>
-
-
-
         </div>
-
     </body>
 </html>
