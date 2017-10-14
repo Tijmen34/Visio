@@ -20,7 +20,7 @@ public class Beacon {
     private double longtitude;
     
     public Beacon(String name, double latitude, double longitude) {
-        this.id = idGenerator++;
+        this.id = ++idGenerator;
         this.name = name;
         this.latitude = latitude;
         this.longtitude = longitude;
