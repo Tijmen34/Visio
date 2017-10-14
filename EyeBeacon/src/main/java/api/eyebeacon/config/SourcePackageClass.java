@@ -1,4 +1,4 @@
-package api.eyebeacon;
+package api.eyebeacon.config;
 
 /**
  *
