@@ -1,7 +1,6 @@
 package api.eyebeacon.resource;
 
 import java.io.IOException;
-import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -11,8 +10,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONArray;
+import api.eyebeacon.model.ClientError;
 
 /**
  * Retrive Beacon List
@@ -22,24 +20,26 @@ import org.json.JSONArray;
 @Path("beacons")
 public class GetBeacons {
 
-    private ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-    
+    private final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+            .withDefaultPrettyPrinter();
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response returnBeaconList() throws JSONException, IOException {
-        BeaconResource beaconlist = new BeaconResource();
+        BeaconResource beaconList = new BeaconResource();
         
-        String json = ow.writeValueAsString(beaconlist);
+        String json = OBJECT_WRITER.writeValueAsString(beaconList);
 
-        beaconlist = null;
+        beaconList = null;
         Beacon.resetId();
+        
+        //return Response.status(Response.Status.OK).entity(beaconList).build();
 
         return Response.ok(json, MediaType.APPLICATION_JSON).build();
     }
 
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{beaconId}")
     public Response returnBreacon(@PathParam("beaconId") int id)
             throws JSONException, IOException {
@@ -59,14 +59,16 @@ public class GetBeacons {
             Beacon.resetId();
 
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("No beacon found with id: " + id).build();
+                    .entity(new ClientError("No beacon found with id: " + id)).build();
         }
 
         beaconlist = null;
         Beacon.resetId();
         
-        String json = ow.writeValueAsString(returnBeacon);
-        return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        return Response.status(Response.Status.OK).entity(returnBeacon).build();
+        
+        /*String json = OBJECT_WRITER.writeValueAsString(returnBeacon);
+        return Response.ok(json, MediaType.APPLICATION_JSON).build();*/
 
     }
 }
