@@ -8,20 +8,25 @@ package api.eyebeacon.model;
 import java.io.Serializable;
 
 /**
- * Display client errors as JSON for consistancy
+ * Save client errors in an object to make sure they are displayed as JSON
  *
  * @author Erik Wolters <erik.wolters@hva.nl>
  */
 public class ClientError implements Serializable {
-    
-    private String errorMessage;
-    
+
+    private String errorMessage; // The message to show
+
+    /**
+     * Create the message
+     *
+     * @param errorMessage
+     */
     public ClientError(String errorMessage) {
         this.errorMessage = errorMessage;
     }
-    
+
     public String getErrorMessage() {
         return errorMessage;
     }
-    
+
 }

@@ -9,7 +9,7 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
- * Doel is nog niet bekent, ik snap er namelijk nog geen f*ck van.
+ * Set the base path of the API
  *
  * @author Erik Wolters <erik.wolters@hva.nl>
  */

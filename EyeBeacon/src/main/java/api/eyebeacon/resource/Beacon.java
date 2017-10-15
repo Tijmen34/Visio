@@ -9,16 +9,22 @@ public class Beacon {
     
     private static int idGenerator = 0;
     
-    private int id;
-    private String name;
-    private double latitude;
-    private double longtitude;
-    
+    private int id; // unique identifier for the beacons
+    private String name; // Display name fot the beacond
+    private double latitude, longtitude; // Geographical position of the beacon
+
+    /**
+     * Create a beacon
+     * 
+     * @param name // Used to set the display name
+     * @param latitude // Used to determine geographical position
+     * @param longitude  // Used to determine geographical position
+     */
     public Beacon(String name, double latitude, double longitude) {
-        this.id = ++idGenerator;
-        this.name = name;
-        this.latitude = latitude;
-        this.longtitude = longitude;
+        this.id = ++idGenerator; // Generate id
+        this.name = name; // Set display name
+        this.latitude = latitude; // Set geographical position
+        this.longtitude = longitude; // Set geographical position
     }
     
     public int getId() {
@@ -37,6 +43,10 @@ public class Beacon {
         return longtitude;
     }
     
+    /**
+     * Reset the id to zero to avoid the system from generating unlimited
+     * beacons
+     */
     public static void resetId() {
         idGenerator = 0;
     }
