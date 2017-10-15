@@ -1,0 +1,69 @@
+{
+    "beacons":
+            {
+                "beacon":
+                        [
+                            {
+                                "name": "Wibauthuis 3",
+                                "position":
+                                        [
+                                            {
+                                                "latitude": "52.360014"
+                                            },
+                                            {
+                                                "longitude": "4.908756"
+                                            }
+                                        ]
+                            },
+                            {
+                                "name": "Wibauthuis 4",
+                                "position":
+                                        [
+                                            {
+                                                "latitude": "52.359419"
+                                            },
+                                            {
+                                                "longitude": "4.909093"
+                                            }
+                                        ]
+                            },
+                            {
+                                "name": "Wibauthuis 6",
+                                "position":
+                                        [
+                                            {
+                                                "latitude": "52.358628"
+                                            },
+                                            {
+                                                "longitude": "4.909593"
+                                            }
+                                        ]
+                            },
+                            {
+                                "name": "Wibauthuis 8",
+                                "position":
+                                        [
+                                            {
+                                                "latitude": "52.358815"
+                                            },
+                                            {
+                                                "longitude": "4.910468"
+                                            }
+                                        ]
+                            },
+                            {
+                                "name": "Wibauthuis 13",
+                                "position":
+                                        [
+                                            {
+                                                "latitude": "52.358077"
+                                            },
+                                            {
+                                                "longitude": "4.909910"
+                                            }
+                                        ]
+                            }
+
+                        ]
+            }
+}
