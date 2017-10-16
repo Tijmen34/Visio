@@ -19,9 +19,10 @@ public class BeaconResource {
      */
     public BeaconResource() {
         // Store hardcoded data in the test beacons
-        BEACONS[0] = new Beacon("Entrance BPH", 52.359816, 4.909363);
-        BEACONS[1] = new Beacon("Entrance WBH", 52.359182, 4.909577);
-        BEACONS[2] = new Beacon("Subway Entrance Rhijnspoorplein", 52.360892, 4.908522);
+        BEACONS[0] = new Beacon("Entrance HvA - BPH", 52.359816, 4.909363);
+        BEACONS[1] = new Beacon("Entrance HvA - WBH", 52.359182, 4.909577);
+        BEACONS[2] = new Beacon("Subway Entrance Rhijnspoorplein", 52.360892,
+                4.908522);
     }
     
     public Beacon[] getBeacons() {

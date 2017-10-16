@@ -13,7 +13,7 @@ import org.json.JSONException;
 import api.eyebeacon.model.ClientError;
 
 /**
- * Retrive Beacon List
+ * Retrive Beacon List or an individual beacon specified by ID
  *
  * @author Erik Wolters <erik.wolters@hva.nl>
  */
@@ -43,7 +43,11 @@ public class GetBeacons {
                 || beaconList.getBeacons() == null) {
             // Create the client error
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ClientError("No beacons were found")).build();
+                    .entity(new ClientError("No beacons were found"))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", 
+                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                    .build();
         }
 
         // Format the array to JSON
@@ -54,7 +58,11 @@ public class GetBeacons {
         Beacon.resetId();
 
         // Create a response with the beacons
-        return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        return Response.ok(json, MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", 
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .build();
     }
     
     /**
@@ -94,6 +102,9 @@ public class GetBeacons {
             // Create a client error
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(new ClientError("No beacon found with id: " + id))
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", 
+                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                     .build();
         }
 
@@ -102,6 +113,10 @@ public class GetBeacons {
         Beacon.resetId();
 
         // Return the requested beacon
-        return Response.status(Response.Status.OK).entity(returnBeacon).build();
+        return Response.status(Response.Status.OK).entity(returnBeacon)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", 
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .build();
     }
 }
