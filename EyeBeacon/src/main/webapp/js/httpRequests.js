@@ -1,4 +1,3 @@
-
 var HttpClient = function() {
     this.get = function(aUrl, aCallback) {
         var anHttpRequest = new XMLHttpRequest();
@@ -11,4 +10,3 @@ var HttpClient = function() {
         anHttpRequest.send( null );
     }
 }
-
