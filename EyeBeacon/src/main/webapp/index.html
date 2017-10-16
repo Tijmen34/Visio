@@ -5,9 +5,8 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="css/style.css">
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script src="js/httpRequests.js"></script>
     </head>
-    <body onload="initialize()">
+    <body onload="initMap()">
         <!-- content gaat vanaf hier --> 
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <!-- START-COMP: L-Linkbar -->
@@ -44,9 +43,10 @@
 
 
             <script>
+                var map;
                 var marker;
-                var url = "http://it95.nl:8080/EyeBeacon-1.0/api/beacons/1";
-                var locations = [];
+                var url = "http://it95.nl:8080/EyeBeacon-1.0/api/beacons";
+
                 // var locations = [
                 //     ['Wibautstraat 4', 52.360014, 4.908756],
                 //     ['Wibautstraat 8', 52.359419, 4.909093],
@@ -54,57 +54,42 @@
                 //     ['Wibautstraat 7', 52.358815, 4.910468],
                 //    ['Wibautstraat 13', 52.358077, 4.909910]
                 // ];
-                
 
-                function createNode(element, className) {
-                var elem = document.createElement(element);
-                elem.className = className;
-                return elem;
-                }
 
-                function append(parent, el) {
-                return parent.appendChild(el); // Append the second parameter(element) to the first one
-                }
 
-                function initialize() {
-                var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 16,
+                function initMap() {
+
+                    var mapProp = {
                         center: new google.maps.LatLng(52.35840924, 4.9096334),
-                        //mapTypeId: 'terrain',
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        zoom: 16,
                         gestureHandling: 'cooperative',
                         streetViewControl: false
-                });
-                setHardcodedMarkers(map, locations);
-                google.maps.event.addListener(map, 'click', function (event) {
-                placeMarker(event.latLng);
-                });
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), mapProp);
+                }
+                ;
+
                 fetch(url)
-                        .then((resp) => resp.json())
-                        .then(function(data) {
-                        var beacon = data;
-                
-                        beacon.map(function(beacon) {
-                        var tr = createNode('tr', ''),
-                                td1 = createNode('td', 'mdl-data-table__cell--non-numeric'),
-                                td2 = createNode('td', 'mdl-data-table__cell--non-numeric'),
-                                td3 = createNode('td', 'mdl-data-table__cell--non-numeric'),
-                                img = createNode('img');
-                        td1.innerHTML = `${beacon.name}`;
-                        td2.innerHTML = `${beacon.capital}`;
-                        img.src = country.flag;
-                        img.width = 60;
-                        img.heigth = 60;
-                        append(td3, img);
-                        append(tr, td1)
-                                append(tr, td2);
-                        append(tr, td3);
-                        append(tbody, tr);
-                        });
-                        })
-                        .catch(function(error){
-                        console.log("Error");
-                        });
+                        .then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+
+                    console.log(data);
+
+                    for (var i = 0; i < data.beacons.length; i++) {
+
+                        var myLatLng = {lat: data.beacons[i].latitude, lng: data.beacons[i].longitude};
+                        placeMarker(myLatLng);
+
+                    }
+                });
+
+                //setHardcodedMarkers(map, locations);
+
+
+
+
+
                 // 
 //                    infowindow = new google.maps.InfoWindow({
 //                        content: document.getElementById('form')
@@ -121,43 +106,39 @@
 //                            infowindow.open(map, marker);
 //                        });
 //                    });
-                }
+
 
                 function placeMarker(location) {
-                var marker = new google.maps.Marker({
-                position: location,
+                    var marker = new google.maps.Marker({
+                        position: location,
                         map: map
-                });
-                marker.setMap(map);
+                    });
+                    marker.setMap(map);
                 }
 
                 function setHardcodedMarkers(map, locations) {
-                var marker, i;
-                for (i = 0; i < locations.length; i++) {
-                var name = locations[i][0];
-                var lat = locations[i][1];
-                var long = locations [i][2];
-                latlngset = new google.maps.LatLng(lat, long);
-                var marker = new google.maps.Marker({
-                map: map,
-                        title: name,
-                        position: latlngset
-                });
-                var infowindowContent = "<h5>" + name + " </h5>Latitude: " + lat + " <br>Longitude: " + long;
-                //  var client = new HttpClient();
-                //  client.get('http://it95.nl:8080/EyeBeacon-1.0/api/beacons', function (response) {
-                //      infowindowContent = response;
-                //  });
+                    var marker, i;
+                    for (i = 0; i < locations.length; i++) {
+                        var name = locations[i][0];
+                        var lat = locations[i][1];
+                        var long = locations [i][2];
+                        latlngset = new google.maps.LatLng(lat, long);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            title: name,
+                            position: latlngset
+                        });
+                        var infowindowContent = "<h5>" + name + " </h5>Latitude: " + lat + " <br>Longitude: " + long;
 
-                map.setCenter(marker.getPosition());
-                var infowindow = new google.maps.InfoWindow();
-                google.maps.event.addListener(marker, 'click', (function (marker, infowindowContent, infowindow) {
-                return function () {
-                infowindow.setContent(infowindowContent);
-                infowindow.open(map, marker);
-                };
-                })(marker, infowindowContent, infowindow));
-                }
+                        map.setCenter(marker.getPosition());
+                        var infowindow = new google.maps.InfoWindow();
+                        google.maps.event.addListener(marker, 'click', (function (marker, infowindowContent, infowindow) {
+                            return function () {
+                                infowindow.setContent(infowindowContent);
+                                infowindow.open(map, marker);
+                            };
+                        })(marker, infowindowContent, infowindow));
+                    }
                 }
 
 
