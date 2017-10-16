@@ -15,9 +15,9 @@
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
                         <div class="mdl-layout-spacer"></div>
                         <a class="mdl-navigation__link menuText" href="index.html">Home</a>
-                        <a class="mdl-navigation__link menuText" href="map+add marker.html">Route</a>
-                        <a class="mdl-navigation__link menuText" href="stadfiets.html">Beacons</a>
-                        <a class="mdl-navigation__link menuText" href="transportfiets.html">Profile</a>
+                        <a class="mdl-navigation__link menuText" href="#">Route</a>
+                        <a class="mdl-navigation__link menuText" href="html/beaconsList.html">Beacons</a>
+                        <a class="mdl-navigation__link menuText" href="#">Profile</a>
                         <div class="mdl-layout-spacer"></div>
                     </nav>
                     <div class="mdl-layout-spacer"></div>
@@ -33,29 +33,17 @@
             <div class="mdl-layout__drawer mdl-layout--small-screen-only">
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link menuText" href="index.html">Home</a>
-                    <a class="mdl-navigation__link menuText" href="map+add marker.html">Route</a>
-                    <a class="mdl-navigation__link menuText" href="stadfiets.html">Beacons</a>
-                    <a class="mdl-navigation__link menuText" href="transportfiets.html">Profile</a>
+                    <a class="mdl-navigation__link menuText" href="#">Route</a>
+                    <a class="mdl-navigation__link menuText" href="html/beaconsList">Beacons</a>
+                    <a class="mdl-navigation__link menuText" href="#">Profile</a>
                 </nav>
             </div>
 
             <div id="map"></div>
 
-
             <script>
                 var map;
-                var marker;
                 var url = "http://it95.nl:8080/EyeBeacon-1.0/api/beacons";
-
-                // var locations = [
-                //     ['Wibautstraat 4', 52.360014, 4.908756],
-                //     ['Wibautstraat 8', 52.359419, 4.909093],
-                //     ['Wibautstraat 3', 52.358628, 4.909593],
-                //     ['Wibautstraat 7', 52.358815, 4.910468],
-                //    ['Wibautstraat 13', 52.358077, 4.909910]
-                // ];
-
-
 
                 function initMap() {
 
@@ -73,40 +61,12 @@
                         .then(function (response) {
                             return response.json();
                         }).then(function (data) {
-
                     console.log(data);
-
                     for (var i = 0; i < data.beacons.length; i++) {
-
                         var myLatLng = {lat: data.beacons[i].latitude, lng: data.beacons[i].longitude};
                         placeMarker(myLatLng);
-
                     }
                 });
-
-                //setHardcodedMarkers(map, locations);
-
-
-
-
-
-                // 
-//                    infowindow = new google.maps.InfoWindow({
-//                        content: document.getElementById('form')
-//                    });
-//
-//                    google.maps.event.addListener(map, 'click', function (event) {
-//                        marker = new google.maps.Marker({
-//                            position: event.latLng,
-//                            map: map
-//                        });
-
-//                        google.maps.event.addListener(marker, 'click', function () {
-//
-//                            infowindow.open(map, marker);
-//                        });
-//                    });
-
 
                 function placeMarker(location) {
                     var marker = new google.maps.Marker({
@@ -115,36 +75,6 @@
                     });
                     marker.setMap(map);
                 }
-
-                function setHardcodedMarkers(map, locations) {
-                    var marker, i;
-                    for (i = 0; i < locations.length; i++) {
-                        var name = locations[i][0];
-                        var lat = locations[i][1];
-                        var long = locations [i][2];
-                        latlngset = new google.maps.LatLng(lat, long);
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            title: name,
-                            position: latlngset
-                        });
-                        var infowindowContent = "<h5>" + name + " </h5>Latitude: " + lat + " <br>Longitude: " + long;
-
-                        map.setCenter(marker.getPosition());
-                        var infowindow = new google.maps.InfoWindow();
-                        google.maps.event.addListener(marker, 'click', (function (marker, infowindowContent, infowindow) {
-                            return function () {
-                                infowindow.setContent(infowindowContent);
-                                infowindow.open(map, marker);
-                            };
-                        })(marker, infowindowContent, infowindow));
-                    }
-                }
-
-
-
-
-
             </script>
 
             <script async defer 

@@ -1,0 +1,72 @@
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </head>
+    <body>
+        <!-- content gaat vanaf hier --> 
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <!-- START-COMP: L-Linkbar -->
+            <header id="mainHeader" class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <div class="mdl-layout-spacer"></div>
+                        <a class="mdl-navigation__link menuText" href="../index.html">Home</a>
+                        <a class="mdl-navigation__link menuText" href="#">Route</a>
+                        <a class="mdl-navigation__link menuText" href="../html/beaconsList.html">Beacons</a>
+                        <a class="mdl-navigation__link menuText" href="#">Profile</a>
+                        <div class="mdl-layout-spacer"></div>
+                    </nav>
+                    <div class="mdl-layout-spacer"></div>
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <a class="mdl-navigation__link" href="#"></a>
+                        <a class="mdl-navigation__link" href="#"></a>
+                    </nav>
+
+                </div>
+            </header>
+
+            <!--  small screens get a drawer thing -->
+            <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link menuText" href="index.html">Home</a>
+                    <a class="mdl-navigation__link menuText" href="#">Route</a>
+                    <a class="mdl-navigation__link menuText" href="../html/beaconsList.html">Beacons</a>
+                    <a class="mdl-navigation__link menuText" href="#">Profile</a>
+                </nav>
+            </div>
+
+            <h1>All of the beacons</h1>
+            <ul id="allBeacons"></ul>>
+
+            <script>
+                var ul = document.getElementById('allBeacons')
+                var url = "http://it95.nl:8080/EyeBeacon-1.0/api/beacons";
+
+                fetch(url)
+                        .then(function (response) {
+                            return response.json();
+                        }).then(function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.beacons.length; i++) {
+                        var listItem = document.createElement('li');
+                        listItem.innerHTML = " Beacon id: " + data.beacons[i].id
+                                + "<br> Beacon name: " + data.beacons[i].name
+                                + "<br> Latitude: " + data.beacons[i].latitude
+                                + "<br> Longitude:" + data.beacons[i].longitude
+                                + "<br> _____"
+                        ul.appendChild(listItem);
+                    }
+                });
+
+
+            </script>
+
+            <script async defer 
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdY-kyv5IseWrut2MfMYIjKVvGAm37ZWc">
+            </script>
+        </div>
+    </body>
+</html>
