@@ -25,7 +25,7 @@ public class GetBeacons {
             .withDefaultPrettyPrinter();
 
     /**
-     * Get a list of aal beacons
+     * Get a list of al beacons
      * 
      * @return JSON response with the beacons or an error.
      * @throws JSONException
