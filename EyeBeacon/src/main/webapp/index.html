@@ -43,7 +43,7 @@
 
             <script>
                 var map;
-                var url = "http://it95.nl:8080/EyeBeacon-1.0/api/beacons";
+                var url = "http://it95.nl:8080/api/beacons";
 
                 function initMap() {
 
@@ -54,19 +54,20 @@
                         streetViewControl: false
                     };
                     map = new google.maps.Map(document.getElementById('map'), mapProp);
-                }
-                ;
+                } ;
 
-                fetch(url)
-                        .then(function (response) {
-                            return response.json();
-                        }).then(function (data) {
-                    console.log(data);
-                    for (var i = 0; i < data.beacons.length; i++) {
-                        var myLatLng = {lat: data.beacons[i].latitude, lng: data.beacons[i].longitude};
-                        placeMarker(myLatLng);
-                    }
-                });
+                setTimeout(function () {
+                    fetch(url)
+                            .then(function (response) {
+                                return response.json();
+                            }).then(function (data) {
+                        console.log(data);
+                        for (var i = 0; i < data.beacons.length; i++) {
+                            var myLatLng = {lat: data.beacons[i].latitude, lng: data.beacons[i].longitude};
+                            placeMarker(myLatLng);
+                        }
+                    });
+                }, 3000)
 
                 function placeMarker(location) {
                     var marker = new google.maps.Marker({
