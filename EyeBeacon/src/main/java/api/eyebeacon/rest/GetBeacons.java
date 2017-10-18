@@ -1,5 +1,6 @@
-package api.eyebeacon.resource;
+package api.eyebeacon.rest;
 
+import api.eyebeacon.model.Beacon;
 import java.io.IOException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
-import api.eyebeacon.model.ClientError;
+import api.eyebeacon.rest.model.ClientError;
 
 /**
  * Retrive Beacon List or an individual beacon specified by ID

@@ -1,4 +1,4 @@
-package api.eyebeacon.config;
+package api.eyebeacon.rest.config;
 
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;

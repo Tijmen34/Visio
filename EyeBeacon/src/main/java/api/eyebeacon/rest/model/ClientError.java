@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package api.eyebeacon.model;
+package api.eyebeacon.rest.model;
 
 import java.io.Serializable;
 

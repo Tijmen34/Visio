@@ -1,4 +1,6 @@
-package api.eyebeacon.resource;
+package api.eyebeacon.rest;
+
+import api.eyebeacon.model.Beacon;
 
 /**
  * Generate a hardcoded list of beacons for testing purposes

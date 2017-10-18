@@ -1,4 +1,4 @@
-package api.eyebeacon.resource;
+package api.eyebeacon.model;
 
 /**
  * Manage beacons
