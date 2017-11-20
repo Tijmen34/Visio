@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import java.util.Arrays;
 import com.mongodb.Block;
+import com.mongodb.client.FindIterable;
 
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.*;
@@ -30,9 +31,9 @@ public class DatabaseConn {
 
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
 
-    private static MongoCollection<Document> collection = database.getCollection("test");
+    private static MongoCollection<Document> collection = database.getCollection("beacon");
 
-
+    
     public static void createDoc() {
 
         Document doc = new Document("name", "MongoDB")
@@ -44,12 +45,11 @@ public class DatabaseConn {
         collection.insertOne(doc);
     }
 
-    public Document findDoc(){
+    public FindIterable findDoc(){
         
-        Document myDoc = collection.find().first();
-        System.out.println(myDoc.toJson());
-        return myDoc;
-        
+     FindIterable<Document> findIterable = collection.find(new Document());
+     return findIterable;   
+     
     }
     
 }

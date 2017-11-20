@@ -13,6 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
 import api.eyebeacon.rest.model.ClientError;
+import com.mongodb.client.FindIterable;
 import org.bson.Document;
 
 /**
@@ -39,10 +40,9 @@ public class GetBeacons {
     public Response returnBeaconList() throws JSONException, IOException {
         
 //        // Load alist of beacons
-//        BeaconResource beaconList = new BeaconResource();
           DatabaseConn db = new DatabaseConn();
-          Document beaconList = db.findDoc();
-//        
+          FindIterable beaconList = db.findDoc();
+        
 //        // Check if there are beacons in the list
 //        if (beaconList.getBeacons().length == 0
 //                || beaconList.getBeacons() == null) {
@@ -54,23 +54,9 @@ public class GetBeacons {
 //                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
 //                    .build();
 //        }
-//
+
 //        // Format the array to JSON
         String json = OBJECT_WRITER.writeValueAsString(beaconList);
-//
-//        // Reset the beacon list.
-//        beaconList = null;
-//        Beacon.resetId();
-//
-//        // Create a response with the beacons
-//        return Response.ok(json, MediaType.APPLICATION_JSON)
-//                .header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Methods", 
-//                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-//                .build();
-
-            
-        
 
             return Response.ok(json, MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*")
@@ -93,7 +79,7 @@ public class GetBeacons {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{beaconId}")
-    public Response returnBreacon(@PathParam("beaconId") int id)
+    public Response returnBeacon(@PathParam("beaconId") int id)
             throws JSONException, IOException {
 
         // Load a list of beacons
