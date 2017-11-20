@@ -62,8 +62,8 @@
                                 return response.json();
                             }).then(function (data) {
                         console.log(data);
-                        for (var i = 0; i < data.beacons.length; i++) {
-                            var myLatLng = {lat: data.beacons[i].latitude, lng: data.beacons[i].longitude};
+                        for (var i = 0; i < data.beacon.length; i++) {
+                            var myLatLng = {lat: data.beacon[i].latitude, lng: data.beacon[i].longitude};
                             placeMarker(myLatLng);
                         }
                     });

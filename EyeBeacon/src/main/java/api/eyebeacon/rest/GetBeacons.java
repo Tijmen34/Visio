@@ -1,6 +1,7 @@
 package api.eyebeacon.rest;
 
 import api.eyebeacon.model.Beacon;
+import api.eyebeacon.model.DatabaseConn;
 import java.io.IOException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
 import api.eyebeacon.rest.model.ClientError;
+import org.bson.Document;
 
 /**
  * Retrive Beacon List or an individual beacon specified by ID
@@ -36,34 +38,48 @@ public class GetBeacons {
     @Produces(MediaType.APPLICATION_JSON)
     public Response returnBeaconList() throws JSONException, IOException {
         
-        // Load alist of beacons
-        BeaconResource beaconList = new BeaconResource();
-
-        // Check if there are beacons in the list
-        if (beaconList.getBeacons().length == 0
-                || beaconList.getBeacons() == null) {
-            // Create the client error
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ClientError("No beacons were found"))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Methods", 
-                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                    .build();
-        }
-
-        // Format the array to JSON
+//        // Load alist of beacons
+//        BeaconResource beaconList = new BeaconResource();
+          DatabaseConn db = new DatabaseConn();
+          Document beaconList = db.findDoc();
+//        
+//        // Check if there are beacons in the list
+//        if (beaconList.getBeacons().length == 0
+//                || beaconList.getBeacons() == null) {
+//            // Create the client error
+//            return Response.status(Response.Status.NOT_FOUND)
+//                    .entity(new ClientError("No beacons were found"))
+//                    .header("Access-Control-Allow-Origin", "*")
+//                    .header("Access-Control-Allow-Methods", 
+//                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+//                    .build();
+//        }
+//
+//        // Format the array to JSON
         String json = OBJECT_WRITER.writeValueAsString(beaconList);
+//
+//        // Reset the beacon list.
+//        beaconList = null;
+//        Beacon.resetId();
+//
+//        // Create a response with the beacons
+//        return Response.ok(json, MediaType.APPLICATION_JSON)
+//                .header("Access-Control-Allow-Origin", "*")
+//                .header("Access-Control-Allow-Methods", 
+//                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+//                .build();
 
-        // Reset the beacon list.
-        beaconList = null;
-        Beacon.resetId();
+            
+        
 
-        // Create a response with the beacons
-        return Response.ok(json, MediaType.APPLICATION_JSON)
+            return Response.ok(json, MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", 
                         "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .build();
+
+
+
     }
     
     /**
