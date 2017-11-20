@@ -8,7 +8,7 @@ import api.eyebeacon.model.Beacon;
  * @author Erik Wolters <erik.wolters@hva.nl>
  * @deprecated Only used for testing
  */
-@Deprecated
+//@Deprecated
 public class BeaconResource {
 
     // Determine the amount of testing beacons
@@ -26,8 +26,11 @@ public class BeaconResource {
         BEACONS[2] = new Beacon("Subway Entrance Rhijnspoorplein", 52.360892,
                 4.908522);
     }
-    
-    public Beacon[] getBeacons() {
+    public Beacon addMessage(Beacon beacon){
+        beacon.setId(AMOUNT_OF_TESTING_BEACONS + 1);
+        return beacon;
+    }
+    public Beacon[] getBeacons() { 
         return BEACONS;
     }
 }
