@@ -13,25 +13,19 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
 import api.eyebeacon.rest.model.ClientError;
-<<<<<<< HEAD
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
-=======
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
->>>>>>> Laura
+
 
 /**
  * Retrive Beacon List or an individual beacon specified by ID
  *
-<<<<<<< HEAD
- */  
-@Path("beacons")
-=======
+ * 
  * @author 
- */
+ */  
 @Path("/beacons")
->>>>>>> Laura
 public class GetBeacons {
 
     // Object writer to write arrays to JSON
@@ -77,71 +71,6 @@ public class GetBeacons {
 
     }
 
-    /**
-     * Get an individual beacon
-     *
-     * @param id int The id of the beacon to return
-     * @return JSON with client error or a single beacon
-     * @throws JSONException
-     * @throws IOException
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{beaconId}")
-    public Response returnBeacon(@PathParam("beaconId") String id)
-            throws JSONException, IOException {
-
-        // Load a list of beacons
-        BeaconResource beaconlist = new BeaconResource();
-
-        // Create an instance of beacon to return
-        Beacon returnBeacon = null;
-
-        // Loop trough all beacons and find the one with a matching ID
-        for (Beacon beacon : beaconlist.getBeacons()) {
-            if (beacon.getUUID()== id) {
-                returnBeacon = beacon;
-            }
-        }
-
-        // Check if there is a matching beacon
-        if (returnBeacon == null) {
-
-            // Reset the beacon list
-            beaconlist = null;
-            Beacon.resetId();
-
-            // Create a client error
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ClientError("No beacon found with id: " + id))
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Methods",
-                            "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                    .build();
-        }
-
-        // Reset the beaconlist
-        beaconlist = null;
-        Beacon.resetId();
-
-        // Return the requested beacon
-        return Response.status(Response.Status.OK).entity(returnBeacon)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods",
-                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .build();
-    }
-    
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Beacon addMessage(Beacon beacon){
-        
-        return BeaconResource.addMessage(beacon);
-    
-    }
-    
-    
     
     
 }

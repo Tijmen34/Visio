@@ -3,11 +3,10 @@ package api.eyebeacon.model;
 /**
  * Manage beacons
  *
- * @author Erik Wolters <erik.wolters@hva.nl>
+ * @author 
  */
 public class Beacon {
 
-    private static int idGenerator = 0;
 
     private String UUID; // Display name for the beacond
     private int major;
@@ -29,10 +28,6 @@ public class Beacon {
         this.name = name;
         this.latitude = latitude; // Set geographical position
         this.longitude = longitude; // Set geographical position
-    }
-
-    public Beacon(String entrance_HvA__BPH, double d, double d0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getUUID() {
@@ -71,11 +66,4 @@ public class Beacon {
         return longitude;
     }
 
-    /**
-     * Reset the id to zero to avoid the system from generating unlimited
-     * beacons
-     */
-    public static void resetId() {
-        idGenerator = 0;
-    }
 }

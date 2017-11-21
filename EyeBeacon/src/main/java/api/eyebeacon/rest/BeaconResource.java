@@ -5,7 +5,7 @@ import api.eyebeacon.model.Beacon;
 /**
  * Generate a hardcoded list of beacons for testing purposes
  * 
- * @author Erik Wolters <erik.wolters@hva.nl>
+ * @author 
  * @deprecated Only used for testing
  */
 //@Deprecated
@@ -19,18 +19,6 @@ public class BeaconResource {
     /**
      * Generate testing beacons
      */
-    public BeaconResource() {
-        // Store hardcoded data in the test beacons
-        BEACONS[0] = new Beacon("Entrance HvA - BPH", 52.359816, 4.909363);
-        BEACONS[1] = new Beacon("Entrance HvA - WBH", 52.359182, 4.909577);
-        BEACONS[2] = new Beacon("Subway Entrance Rhijnspoorplein", 52.360892,
-                4.908522);
-    }
-    public Beacon addMessage(Beacon beacon){
-        beacon.setId(AMOUNT_OF_TESTING_BEACONS + 1);
-        return beacon;
-    }
-    public Beacon[] getBeacons() { 
-        return BEACONS;
-    }
+  
+  
 }

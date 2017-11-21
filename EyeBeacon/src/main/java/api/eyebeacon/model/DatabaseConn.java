@@ -47,12 +47,15 @@ public class DatabaseConn {
 //       System.out.println(json);
 //       
 //    }
-    public void addBeacon(String UUID, int Major, int Minor, String name, double latitude, double longitude) {
+    
+    public void addBeacon(Beacon b) {
 
-        Document doc = new Document("UUID", UUID)
-                .append("Major", Major)
-                .append("Minor", Minor)
-                .append("location", new Document("name", name).append("latitude:  ", latitude).append("longitude:  ", longitude));
+        Document doc = new Document("name", b.getName())
+                .append("UUID", b.getUUID())
+                .append("Major", b.getMajor())
+                .append("Minor", b.getMinor())
+                .append("latitude", b.getLatitude())
+                .append("longitutde", b.getLongitude());
 
         MongoCollection<Document> collection = database.getCollection("beacon");
         collection.insertOne(doc);
