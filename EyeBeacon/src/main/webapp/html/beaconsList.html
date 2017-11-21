@@ -50,13 +50,18 @@
                             return response.json();
                         }).then(function (data) {
                     console.log(data);
-                    for (var i = 0; i < data.beacon.length; i++) {
-                        var listItem = document.createElement('li');
-                        listItem.innerHTML = " Beacon id: " + data.beacon[i].UUID
-                                + "<br> Beacon Major " + data.beacon[i].Major
-                                + "<br>  Beacon Minor " + data.beacon[i].Minor
-                        ul.appendChild(listItem);
-                    }
+                    for (var i = 0; i < data.length; i++) {
+                   
+                            var listItem = document.createElement('li');
+                            listItem.innerHTML = " Beacon UUID: " + data[i].UUID
+                                    + "<br> Beacon Major: " + data[i].major
+                                    + "<br>  Beacon Minor: " + data[i].minor
+                                    + "<br>  Beacon name: " + data[i].name
+                                   + "<br>  Beacon latitude: " + data[i].latitude
+                                    + "<br>  Beacon longitude: " + data[i].longitude
+                            ul.appendChild(listItem);
+                        }
+                   
                 });
 
 

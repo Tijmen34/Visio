@@ -1,5 +1,6 @@
 package api.eyebeacon.model;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
@@ -17,8 +18,11 @@ import static com.mongodb.client.model.Filters.*;
 import com.mongodb.client.result.DeleteResult;
 import static com.mongodb.client.model.Updates.*;
 import com.mongodb.client.result.UpdateResult;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 
 /**
  *
@@ -31,25 +35,50 @@ public class DatabaseConn {
 
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
 
-    private static MongoCollection<Document> collection = database.getCollection("beacon");
+    // private static MongoCollection<Document> collection = database.getCollection("beacon");
+    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+            .withDefaultPrettyPrinter();
 
-    
-    public static void createDoc() {
+//    public static void main(String[] args) throws IOException {
+//        
+//       String json = OBJECT_WRITER.writeValueAsString(findDocsInColl("beacon"));
+//       String json2 = OBJECT_WRITER.writeValueAsString(updateDoc());
+//       System.out.println(json2);
+//       System.out.println(json);
+//       
+//    }
+    public void addBeacon(String UUID, int Major, int Minor, String name, double latitude, double longitude) {
 
-        Document doc = new Document("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1)
-                .append("versions", Arrays.asList("v3.2", "v3.0", "v2.6"))
-                .append("info", new Document("x", 203).append("y", 102));
+        Document doc = new Document("UUID", UUID)
+                .append("Major", Major)
+                .append("Minor", Minor)
+                .append("location", new Document("name", name).append("latitude:  ", latitude).append("longitude:  ", longitude));
 
+        MongoCollection<Document> collection = database.getCollection("beacon");
         collection.insertOne(doc);
+
     }
 
-    public FindIterable findDoc(){
-        
-     FindIterable<Document> findIterable = collection.find(new Document());
-     return findIterable;   
-     
+    public FindIterable findDocsInColl(String collName) {
+
+        MongoCollection<Document> collection = database.getCollection(collName);
+        FindIterable<Document> findIterable = collection.find(new Document());
+        return findIterable;
+
     }
-    
+
+    public UpdateResult updateDoc() {
+
+        BasicDBObject doc = new BasicDBObject();
+        doc.append("$set", new BasicDBObject().append("UUID", "asjhdgfhdksajgsdf"));
+
+        BasicDBObject searchQuery = new BasicDBObject().append("name", "Entrance HvA - BPH");
+
+        MongoCollection<Document> collection = database.getCollection("beacon");
+        UpdateResult findIterable = collection.updateMany(searchQuery, doc);
+
+        return findIterable;
+
+    }
+
 }
