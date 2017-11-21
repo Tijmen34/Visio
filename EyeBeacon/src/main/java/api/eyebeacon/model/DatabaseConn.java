@@ -36,9 +36,9 @@ public class DatabaseConn {
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
     private static MongoCollection<Document> beaconCollection = database.getCollection("beacon");
     
-   // private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
-   //         .withDefaultPrettyPrinter();
-
+//    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+//            .withDefaultPrettyPrinter();
+//
 //    public static void main(String[] args) throws IOException {
 //
 //        String json = OBJECT_WRITER.writeValueAsString(findDocsInColl("beacon"));

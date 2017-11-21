@@ -3,11 +3,9 @@ package api.eyebeacon.model;
 /**
  * Manage beacons
  *
- * @author Erik Wolters <erik.wolters@hva.nl>
+ * @author Thijs Timmermans
  */
 public class Beacon {
-
-    private static int idGenerator = 0;
 
     private String UUID; // Display name for the beacond
     private int major;
@@ -71,11 +69,5 @@ public class Beacon {
         return longitude;
     }
 
-    /**
-     * Reset the id to zero to avoid the system from generating unlimited
-     * beacons
-     */
-    public static void resetId() {
-        idGenerator = 0;
-    }
+    
 }
