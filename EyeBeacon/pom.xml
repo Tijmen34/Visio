@@ -28,7 +28,11 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>bson</artifactId>
+<<<<<<< HEAD
+          
+=======
+            <artifactId>mongodb-driver</artifactId>
+>>>>>>> Laura
             <version>3.5.0</version>
         </dependency>
         <dependency>
@@ -37,6 +41,12 @@
             <version>3.5.0</version>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+=======
+            
+        </dependency>
+        <dependency>
+>>>>>>> Laura
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
