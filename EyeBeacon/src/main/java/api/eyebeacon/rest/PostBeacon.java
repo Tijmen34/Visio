@@ -42,7 +42,7 @@ public class PostBeacon {
     public void addBeacon() {
 
       DatabaseConn db = new DatabaseConn();
-      db.addBeacon("asdfhasljkhf", 53, 23, "heel ver weg", 0, 0);
+    // db.addBeacon("asdfhasljkhf", 53, 23, "heel ver weg", 0, 0);
 
    
     }
