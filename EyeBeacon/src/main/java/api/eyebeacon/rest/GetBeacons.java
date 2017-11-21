@@ -13,19 +13,32 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.json.JSONException;
 import api.eyebeacon.rest.model.ClientError;
+<<<<<<< HEAD
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+=======
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+>>>>>>> Laura
 
 /**
  * Retrive Beacon List or an individual beacon specified by ID
  *
+<<<<<<< HEAD
  */  
 @Path("beacons")
+=======
+ * @author 
+ */
+@Path("/beacons")
+>>>>>>> Laura
 public class GetBeacons {
 
     // Object writer to write arrays to JSON
     private final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
             .withDefaultPrettyPrinter();
+    
+     BeaconResource  BeaconResource = new  BeaconResource();
 
     /**
      * Get a list of al beacons
@@ -118,4 +131,17 @@ public class GetBeacons {
                         "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                 .build();
     }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Beacon addMessage(Beacon beacon){
+        
+        return BeaconResource.addMessage(beacon);
+    
+    }
+    
+    
+    
+    
 }
