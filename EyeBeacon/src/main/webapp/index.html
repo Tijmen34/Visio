@@ -63,10 +63,8 @@
 				}).then(function (data) {
 					console.log(data);
 					for (var i = 0; i < data.length; i++) {
-					//	for (var j = 0; j < data[i].location.length; j++) {
 							var myLatLng = {lat: data[i].latitude, lng: data[i].longitude};
 							placeMarker(myLatLng);
-					//	}
 
 					}
 				});

@@ -21,6 +21,7 @@ import com.mongodb.client.result.UpdateResult;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.transform.Source;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
@@ -32,30 +33,32 @@ public class DatabaseConn {
 
     private static MongoClientURI uri = new MongoClientURI("mongodb://eyebeacon:UefWS7GMmiBz2bX2@eyebeacon-shard-00-00-zvquw.mongodb.net:27017,eyebeacon-shard-00-01-zvquw.mongodb.net:27017,eyebeacon-shard-00-02-zvquw.mongodb.net:27017/eyebeacon?ssl=true&replicaSet=EyeBeacon-shard-0&authSource=admin");
     private static MongoClient mongoClient = new MongoClient(uri);
-
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
-
-    // private static MongoCollection<Document> collection = database.getCollection("beacon");
-    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
-            .withDefaultPrettyPrinter();
+    private static MongoCollection<Document> beaconCollection = database.getCollection("beacon");
+    
+   // private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+   //         .withDefaultPrettyPrinter();
 
 //    public static void main(String[] args) throws IOException {
-//        
-//       String json = OBJECT_WRITER.writeValueAsString(findDocsInColl("beacon"));
-//       String json2 = OBJECT_WRITER.writeValueAsString(updateDoc());
-//       System.out.println(json2);
-//       System.out.println(json);
-//       
+//
+//        String json = OBJECT_WRITER.writeValueAsString(findDocsInColl("beacon"));
+//        String json2 = OBJECT_WRITER.writeValueAsString(updateDoc());
+//        System.out.println(json2);
+//        System.out.println(json);
+//        System.out.println(findDocsInColl("beacon"));
 //    }
-    public void addBeacon(String UUID, int Major, int Minor, String name, double latitude, double longitude) {
 
-        Document doc = new Document("UUID", UUID)
-                .append("Major", Major)
-                .append("Minor", Minor)
-                .append("location", new Document("name", name).append("latitude:  ", latitude).append("longitude:  ", longitude));
+    public void addBeacon(Beacon b) {
 
-        MongoCollection<Document> collection = database.getCollection("beacon");
-        collection.insertOne(doc);
+        Document beacon = new Document("name", b.getName())
+                .append("UUID", b.getUUID())
+                .append("Major", b.getMajor())
+                .append("Minor", b.getMinor())
+                .append("Latitude", b.getLatitude())
+                .append("Longitude", b.getLongitude());
+
+        MongoCollection<Document> beaconCol = beaconCollection;
+        beaconCol.insertOne(beacon);
 
     }
 
