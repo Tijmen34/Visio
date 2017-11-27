@@ -27,7 +27,7 @@ public class BeaconResource {
                 4.908522);
     }
     public Beacon addMessage(Beacon beacon){
-        beacon.setUUID(AMOUNT_OF_TESTING_BEACONS + 1);
+//        beacon.setUUID(AMOUNT_OF_TESTING_BEACONS + 1);
         return beacon;
     }
     public Beacon[] getBeacons() { 

@@ -28,25 +28,15 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-<<<<<<< HEAD
-          
-=======
             <artifactId>mongodb-driver</artifactId>
->>>>>>> Laura
             <version>3.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-core</artifactId>
             <version>3.5.0</version>
-        </dependency>
+        </dependency>       
         <dependency>
-<<<<<<< HEAD
-=======
-            
-        </dependency>
-        <dependency>
->>>>>>> Laura
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>

@@ -35,7 +35,7 @@ public class DatabaseConn {
     private static MongoClient mongoClient = new MongoClient(uri);
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
     private static MongoCollection<Document> beaconCollection = database.getCollection("beacon");
-    
+
 //    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
 //            .withDefaultPrettyPrinter();
 //
@@ -47,7 +47,7 @@ public class DatabaseConn {
 //        System.out.println(json);
 //        System.out.println(findDocsInColl("beacon"));
 //    }
-
+    
     public void addBeacon(Beacon b) {
 
         Document beacon = new Document("name", b.getName())
@@ -62,6 +62,16 @@ public class DatabaseConn {
 
     }
 
+    public void addPOI(POI p) {
+        Document k = new Document("id", p.getId())
+                .append("name", p.getName())
+                .append("longitude", p.getLongitude())
+                .append("latitude", p.getLatitude());
+
+        MongoCollection<Document> collection = database.getCollection("poi");
+        collection.insertOne(k);
+    }
+
     public FindIterable findDocsInColl(String collName) {
 
         MongoCollection<Document> collection = database.getCollection(collName);
@@ -70,6 +80,10 @@ public class DatabaseConn {
 
     }
 
+//    public long FItoINT(MongoCollection k){
+//        long totalFilteredRecords = k.count();
+//        return totalFilteredRecords;
+//    }
     public UpdateResult updateDoc() {
 
         BasicDBObject doc = new BasicDBObject();
