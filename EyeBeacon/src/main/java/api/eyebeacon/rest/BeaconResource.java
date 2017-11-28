@@ -1,36 +1,39 @@
 package api.eyebeacon.rest;
 
 import api.eyebeacon.model.Beacon;
+import api.eyebeacon.model.DatabaseConn;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 
 /**
  * Generate a hardcoded list of beacons for testing purposes
  * 
- * @author Erik Wolters <erik.wolters@hva.nl>
+ * @author  
  * @deprecated Only used for testing
  */
 //@Deprecated
+@Path("/beacons")
+
 public class BeaconResource {
-
-    // Determine the amount of testing beacons
-    private static final int AMOUNT_OF_TESTING_BEACONS = 3;
-    // Create the array to store testing beacons
-    private final Beacon[] BEACONS = new Beacon[AMOUNT_OF_TESTING_BEACONS];
-
+      DatabaseConn db = new DatabaseConn();
+    private final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+            .withDefaultPrettyPrinter();
+    
+   
     /**
      * Generate testing beacons
      */
-    public BeaconResource() {
-        // Store hardcoded data in the test beacons
-        BEACONS[0] = new Beacon("Entrance HvA - BPH", 52.359816, 4.909363);
-        BEACONS[1] = new Beacon("Entrance HvA - WBH", 52.359182, 4.909577);
-        BEACONS[2] = new Beacon("Subway Entrance Rhijnspoorplein", 52.360892,
-                4.908522);
-    }
-    public Beacon addMessage(Beacon beacon){
-        beacon.setUUID(AMOUNT_OF_TESTING_BEACONS + 1);
-        return beacon;
-    }
-    public Beacon[] getBeacons() { 
-        return BEACONS;
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Beacon addBeacon(Beacon beacon){
+        System.out.println("beacon"+ beacon);
+        return db.addBeacon(beacon);  
+        
     }
 }
