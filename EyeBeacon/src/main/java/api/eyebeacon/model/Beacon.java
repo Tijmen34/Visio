@@ -7,11 +7,15 @@ package api.eyebeacon.model;
  */
 public class Beacon {
 
-    private String UUID; // Display name for the beacond
+    public String UUID; // Display name for the beacond
     private int major;
     private int minor;
     private String name;
-    private double latitude, longitude; // Geographical position of the beacon
+    private double latitude, longitude; // Geographical position of the 
+    
+    public Beacon() {
+        
+    }
 
     /**
      * Create a beacon
@@ -29,12 +33,9 @@ public class Beacon {
         this.longitude = longitude; // Set geographical position
     }
 
-    public Beacon(String entrance_HvA__BPH, double d, double d0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public String getUUID() {
-        return UUID;
+        return this.UUID;
     }
 
     public int getMajor() {
