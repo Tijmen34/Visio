@@ -35,7 +35,7 @@ public class Beacon {
 
 
     public String getUUID() {
-        return this.UUID;
+        return UUID;
     }
 
     public int getMajor() {
