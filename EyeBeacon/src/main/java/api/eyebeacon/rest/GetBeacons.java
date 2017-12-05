@@ -1,5 +1,6 @@
 package api.eyebeacon.rest;
 
+import api.eyebeacon.model.Beacon;
 import api.eyebeacon.model.DatabaseConn;
 import java.io.IOException;
 import javax.ws.rs.GET;

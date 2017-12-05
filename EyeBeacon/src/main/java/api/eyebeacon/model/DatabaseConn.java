@@ -86,4 +86,24 @@ public class DatabaseConn {
 
     }
 
+
+
+    public void addPOI(POI p) {
+        Document k = new Document("id", p.getId())
+                .append("name", p.getName())
+                .append("longitude", p.getLongitude())
+                .append("latitude", p.getLatitude());
+
+        MongoCollection<Document> collection = database.getCollection("poi");
+        collection.insertOne(k);
+    }
+
+    
+
+//    public long FItoINT(MongoCollection k){
+//        long totalFilteredRecords = k.count();
+//        return totalFilteredRecords;
+//    }
+   
 }
+
