@@ -34,8 +34,8 @@ public class DatabaseConn {
     private static MongoClientURI uri = new MongoClientURI("mongodb://eyebeacon:UefWS7GMmiBz2bX2@eyebeacon-shard-00-00-zvquw.mongodb.net:27017,eyebeacon-shard-00-01-zvquw.mongodb.net:27017,eyebeacon-shard-00-02-zvquw.mongodb.net:27017/eyebeacon?ssl=true&replicaSet=EyeBeacon-shard-0&authSource=admin");
     private static MongoClient mongoClient = new MongoClient(uri);
     private static MongoDatabase database = mongoClient.getDatabase("eyebeacon");
-    private static MongoCollection<Document> beaconCollection = database.getCollection("beacon");
-    
+    private static MongoCollection<Document> beaconCollection = database.getCollection("beaconAmsterdam");
+
 //    private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
 //            .withDefaultPrettyPrinter();
 //
@@ -47,9 +47,8 @@ public class DatabaseConn {
 //        System.out.println(json);
 //        System.out.println(findDocsInColl("beacon"));
 //    }
-
     public Beacon addBeacon(Beacon b) {
-        System.out.println("add beacon before"+ b);
+        System.out.println("add beacon before" + b);
         Document newBeaconDoc = new Document("name", b.getName())
                 .append("UUID", b.getUUID())
                 .append("Major", b.getMajor())
@@ -59,9 +58,33 @@ public class DatabaseConn {
 
         MongoCollection<Document> beaconCol = beaconCollection;
         beaconCol.insertOne(newBeaconDoc);
-    System.out.println("add beacon after"+ b);
+        System.out.println("add beacon after" + b);
         return b;
-        
+
+    }
+
+    public User addUser(User u) {
+        System.out.println("add beacon before" + u);
+        Document newUserDoc = new Document("name", u.getName())
+                .append("email", u.getEmail())
+                .append("password", u.getPassword());
+
+        MongoCollection<Document> userCol = database.getCollection("users");
+        userCol.insertOne(newUserDoc);
+        System.out.println("add beacon after" + u);
+        return u;
+
+    }
+
+    public POI addPOI(POI p) {
+        Document newPoiDoc = new Document("id", p.getId())
+                .append("name", p.getName())
+                .append("longitude", p.getLongitude())
+                .append("latitude", p.getLatitude());
+
+        MongoCollection<Document> poiCol = database.getCollection("poi");
+        poiCol.insertOne(newPoiDoc);
+        return p;
     }
 
     public FindIterable findDocsInColl(String collName) {
@@ -86,24 +109,10 @@ public class DatabaseConn {
 
     }
 
-
-
-    public void addPOI(POI p) {
-        Document k = new Document("id", p.getId())
-                .append("name", p.getName())
-                .append("longitude", p.getLongitude())
-                .append("latitude", p.getLatitude());
-
-        MongoCollection<Document> collection = database.getCollection("poi");
-        collection.insertOne(k);
-    }
-
     
 
 //    public long FItoINT(MongoCollection k){
 //        long totalFilteredRecords = k.count();
 //        return totalFilteredRecords;
 //    }
-   
 }
-
