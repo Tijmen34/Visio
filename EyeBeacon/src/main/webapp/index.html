@@ -44,7 +44,8 @@
 		<script>
 			var map;
 			var url = "http://rienstor.no-ip.org:300/EyeBeacons/api/beacons";
-
+                        //var url = "http://localhost:8084/EyeBeacon/api/beacons";
+                        
 			function initMap() {
 
 				var mapProp = {
@@ -59,11 +60,12 @@
 			setTimeout(function () {
 				fetch(url)
 				.then(function (response) {
+                                    console.log(response)
 					return response.json();
 				}).then(function (data) {
 					console.log(data);
 					for (var i = 0; i < data.length; i++) {
-							var myLatLng = {lat: data[i].latitude, lng: data[i].longitude};
+							var myLatLng = {lat: data[i].Latitude, lng: data[i].Longitude};
 							placeMarker(myLatLng);
 
 					}
