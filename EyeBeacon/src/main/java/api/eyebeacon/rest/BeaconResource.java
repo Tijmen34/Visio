@@ -27,7 +27,7 @@ import org.json.JSONException;
 @Path("/beacons")
 public class BeaconResource {
 
-    DatabaseConn db = new DatabaseConn();
+    private static DatabaseConn db = new DatabaseConn();
     private final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
             .withDefaultPrettyPrinter();
 
@@ -44,7 +44,7 @@ public class BeaconResource {
 
 //      Load alist of beacons
         DatabaseConn db = new DatabaseConn();
-        FindIterable beaconColl = db.findDocsInColl("beacon");
+        FindIterable beaconColl = db.findDocsInColl("beaconAmsterdam");
 
         // Check if there are beacons in the list
         if (db.findDocsInColl("beaconAmsterdam") == null) {
@@ -82,8 +82,8 @@ public class BeaconResource {
     
 //  @DELETE
 //  @Path("{id}")
-//  public Beacon deleteBeacon(@PathParam("id") int id) {
-//      return db.deleteBeacon(id);
+//  public boolean deleteBeacon(@PathParam("id") int id) {
+//     // return db.deleteBeacon(id);
 //  }
     
 }

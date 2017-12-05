@@ -60,7 +60,6 @@ public class DatabaseConn {
         beaconCol.insertOne(newBeaconDoc);
         System.out.println("add beacon after" + b);
         return b;
-
     }
 
     public User addUser(User u) {
@@ -110,9 +109,19 @@ public class DatabaseConn {
     }
 
     
-
+    
 //    public long FItoINT(MongoCollection k){
 //        long totalFilteredRecords = k.count();
 //        return totalFilteredRecords;
+//    }
+
+//    public boolean deleteBeacon(int id) {
+//       
+//        BasicDBObject query = new BasicDBObject();
+//        
+//       // query.append("", id)
+//        
+//        
+//        beaconCollection.deleteOne(query);
 //    }
 }
