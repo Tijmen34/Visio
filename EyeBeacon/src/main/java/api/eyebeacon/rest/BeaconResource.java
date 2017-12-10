@@ -4,6 +4,7 @@ import api.eyebeacon.model.Beacon;
 import api.eyebeacon.model.DatabaseConn;
 import api.eyebeacon.rest.model.ClientError;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.result.DeleteResult;
 import java.io.IOException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -43,7 +44,6 @@ public class BeaconResource {
     public Response getBeaconList() throws JSONException, IOException {
 
 //      Load alist of beacons
-        DatabaseConn db = new DatabaseConn();
         FindIterable beaconColl = db.findDocsInColl("beaconAmsterdam");
 
         // Check if there are beacons in the list
@@ -80,10 +80,15 @@ public class BeaconResource {
 
     }
     
-//  @DELETE
-//  @Path("{id}")
-//  public boolean deleteBeacon(@PathParam("id") int id) {
-//     // return db.deleteBeacon(id);
-//  }
+  @DELETE
+  @Path("{description}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response deleteBeacon(@PathParam("description") String Description) {
+      return Response.ok(db.deleteBeacon(Description), MediaType.APPLICATION_JSON)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .build();
+  }
     
 }
