@@ -47,6 +47,7 @@ public class DatabaseConn {
 //        System.out.println(json);
 //        System.out.println(findDocsInColl("beacon"));
 //    }
+    
     public Beacon addBeacon(Beacon b) {
         System.out.println("add beacon before" + b);
         Document newBeaconDoc = new Document("name", b.getName())
@@ -60,7 +61,6 @@ public class DatabaseConn {
         beaconCol.insertOne(newBeaconDoc);
         System.out.println("add beacon after" + b);
         return b;
-
     }
 
     public User addUser(User u) {
@@ -109,10 +109,13 @@ public class DatabaseConn {
 
     }
 
-    
-
 //    public long FItoINT(MongoCollection k){
 //        long totalFilteredRecords = k.count();
 //        return totalFilteredRecords;
 //    }
+    public DeleteResult deleteBeacon(String description) {
+        BasicDBObject query = new BasicDBObject();
+        query.append("Description", description);
+        return beaconCollection.deleteOne(query);
+    }
 }

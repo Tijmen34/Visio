@@ -11,7 +11,8 @@ public class Beacon {
     private int major;
     private int minor;
     private String name;
-    private double latitude, longitude; // Geographical position of the 
+    private double latitude, longitude; // Geographical position of the beacon
+    private String Description;
     
     public Beacon() {
         
@@ -24,13 +25,22 @@ public class Beacon {
      * @param latitude // Used to determine geographical position
      * @param longitude // Used to determine geographical position
      */
-    public Beacon(String UUID, int Major, int Minor, String name, double latitude, double longitude) {
+    public Beacon(String UUID, int Major, int Minor, String name, double latitude, double longitude, String Description) {
         this.UUID = UUID; // Set display name
         this.major = Major;
         this.minor = Minor;
         this.name = name;
         this.latitude = latitude; // Set geographical position
         this.longitude = longitude; // Set geographical position
+        this.Description = Description;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
 
