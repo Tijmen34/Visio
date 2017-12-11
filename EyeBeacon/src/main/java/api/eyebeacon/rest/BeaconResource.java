@@ -4,6 +4,7 @@ import api.eyebeacon.model.Beacon;
 import api.eyebeacon.model.DatabaseConn;
 import api.eyebeacon.rest.model.ClientError;
 import com.mongodb.client.FindIterable;
+import io.swagger.oas.annotations.Operation;
 import com.mongodb.client.result.DeleteResult;
 import io.swagger.oas.annotations.Operation;
 import java.io.IOException;
