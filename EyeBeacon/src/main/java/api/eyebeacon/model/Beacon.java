@@ -7,32 +7,37 @@ package api.eyebeacon.model;
  */
 public class Beacon {
 
-    public String UUID; // Display name for the beacond
-    private int major;
-    private int minor;
-    private String name;
-    private double latitude, longitude; // Geographical position of the beacon
-    private String Description;
+    public String id, Name, Description, Level, PlaceID; // Display Name for the beacond
+    public double Latitude, Longitude; // Geographical position of the beacon
     
     public Beacon() {
         
     }
 
-    /**
-     * Create a beacon
-     *
-     * @param UUID // Used to set the display name
-     * @param latitude // Used to determine geographical position
-     * @param longitude // Used to determine geographical position
-     */
-    public Beacon(String UUID, int Major, int Minor, String name, double latitude, double longitude, String Description) {
-        this.UUID = UUID; // Set display name
-        this.major = Major;
-        this.minor = Minor;
-        this.name = name;
-        this.latitude = latitude; // Set geographical position
-        this.longitude = longitude; // Set geographical position
+    public Beacon(String id, String Name, String Description, String Level, String PlaceID, double Latitude, double Longitude) {
+        this.id = id;
+        this.Name = Name;
         this.Description = Description;
+        this.Level = Level;
+        this.PlaceID = PlaceID;
+        this.Latitude = Latitude;
+        this.Longitude = Longitude;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getDescription() {
@@ -43,42 +48,40 @@ public class Beacon {
         this.Description = Description;
     }
 
-
-    public String getUUID() {
-        return UUID;
+    public String getLevel() {
+        return Level;
     }
 
-    public int getMajor() {
-        return major;
+    public void setLevel(String Level) {
+        this.Level = Level;
     }
 
-    public void setMajor(int major) {
-        this.major = major;
+    public String getPlaceid() {
+        return PlaceID;
     }
 
-    public int getMinor() {
-        return minor;
-    }
-
-    public void setMinor(int minor) {
-        this.minor = minor;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setPlaceid(String PlaceID) {
+        this.PlaceID = PlaceID;
     }
 
     public double getLatitude() {
-        return latitude;
+        return Latitude;
+    }
+
+    public void setLatitude(double Latitude) {
+        this.Latitude = Latitude;
     }
 
     public double getLongitude() {
-        return longitude;
+        return Longitude;
     }
+
+    public void setLongitude(double Longitude) {
+        this.Longitude = Longitude;
+    }
+
+
+
 
     
 }

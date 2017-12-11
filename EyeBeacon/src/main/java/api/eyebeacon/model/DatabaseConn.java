@@ -50,10 +50,10 @@ public class DatabaseConn {
     
     public Beacon addBeacon(Beacon b) {
         System.out.println("add beacon before" + b);
-        Document newBeaconDoc = new Document("name", b.getName())
-                .append("UUID", b.getUUID())
-                .append("Major", b.getMajor())
-                .append("Minor", b.getMinor())
+        Document newBeaconDoc = new Document("Name", b.getName())
+                .append("Description", b.getDescription())
+                .append("Level", b.getLevel())
+                .append("PlaceID", b.getPlaceid())
                 .append("Latitude", b.getLatitude())
                 .append("Longitude", b.getLongitude());
 
@@ -86,6 +86,22 @@ public class DatabaseConn {
         poiCol.insertOne(newPoiDoc);
         return p;
     }
+    
+    
+        public Beacon putBeacon(Beacon b){
+        System.out.println("change old beacon" + b);
+        MongoCollection<Document> beaconCollection2 = database.getCollection("beaconAmsterdam");
+        Document changeBeaconDoc = new Document("Name", b.getName())
+                .append("Description", b.getDescription())
+                .append("Level", b.getLevel())
+                .append("PlaceID", b.getPlaceid())
+                .append("Latitude", b.getLatitude())
+                .append("Longitude", b.getLongitude());
+        beaconCollection2.replaceOne(eq("Name", b.getName()), changeBeaconDoc);
+        System.out.println("change new beacon "+ b);
+
+        return b;
+    }
 
     public FindIterable findDocsInColl(String collName) {
 
@@ -117,5 +133,9 @@ public class DatabaseConn {
         BasicDBObject query = new BasicDBObject();
         query.append("Description", description);
         return beaconCollection.deleteOne(query);
+    }
+
+    public static MongoCollection<Document> getBeaconCollection() {
+        return beaconCollection;
     }
 }

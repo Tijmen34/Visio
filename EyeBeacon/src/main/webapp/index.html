@@ -52,13 +52,31 @@
                 <button id="deleteBtn" class = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="refreshAfterDelete()">DELETE</button>
             </div>
 
+            <div>
+                <form action="http://rienstor.no-ip.org:300/EyeBeacons/api/beacons"
+                      method="post" target="_blank" >
+                    <br>Name:<br>
+                    <input type="text" name="Name" value=""><br>
+                    Description:<br>
+                    <input type="text" name="Description" value=""><br>
+                    <br>Level:<br>
+                    <input type="text" name="Level" value=""><br>
+                    <br>Latitude:<br>
+                    <input type="text" name="Latitude" value=""><br>
+                    <br>Longitude:<br>
+                    <input type="text" name="Longitude" value=""><br>
+                    <br>PlaceID:<br>
+                    <input type="text" name="PLaceID" value=""><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
 
 
 
             <script>
                 var map;
-                //var url = "http://rienstor.no-ip.org:300/EyeBeacons/api/beacons";
-                var url = "http://localhost:8084/EyeBeacon/api/beacons";
+                var url = "http://rienstor.no-ip.org:300/EyeBeacons/api/beacons";
+                //var url = "http://localhost:8084/EyeBeacon/api/beacons";
 
                 function initMap() {
 
@@ -82,24 +100,31 @@
                         for (var i = 0; i < data.length; i++) {
                             var myLatLng = {lat: data[i].Latitude, lng: data[i].Longitude};
                             var description = data[i].Description;
-                            placeMarker(myLatLng, description);
+                            var name = data[i].Name;
+                            var level = data[i].Level;
+                            var placeid = data[i].PlaceID;
+                            placeMarker(myLatLng, description, name, level, placeid);
 
                         }
                     });
                 }, 500)
 
-               function refreshAfterDelete(){
-                   deleteData(url);
-                   window.location.reload();
-               }
-              
+                function refreshAfterDelete() {
+                    deleteData(url);
+                    window.location.reload();
+                }
 
-                function placeMarker(location, description) {
+
+                function placeMarker(location, description, name, level, placeid) {
                     var marker = new google.maps.Marker({
                         position: location
                     });
                     var infowindow = new google.maps.InfoWindow({
-                        content: description
+                        //content: description
+                        content: 'Name: ' + name + '</br> Description: ' +
+                                description + '</br> Level: ' + level + '</br>PlaceID: '
+                                + placeid
+
                     });
                     marker.addListener('click', function () {
                         infowindow.open(map, marker);
@@ -130,7 +155,6 @@
                         console.log('request failed', error)
                     });
                 }
-
 
             </script>
 
