@@ -75,18 +75,14 @@ public class BeaconResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{Name}")
-    public Response returnBeacon(@PathParam("Name") String name) 
+    public Response returnBeacon(@PathParam("Name") String Name)
             throws JSONException, IOException {
 
-        DatabaseConn db = new DatabaseConn();
-        
-        FindIterable oke2 = db.findDocsInColl("beaconAmsterdam");
-        MongoCollection<Document> oke = db.getBeaconCollection();
-        
-        FindIterable goedeBeacon = oke.find(eq("Name", name));
-        
-        if (oke2 == null || goedeBeacon == null) {
+        String returnBeacon = db.getBeacon(Name);
+
+        if (returnBeacon == null) {
             // Create the client error
+
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(new ClientError("No beacons were found"))
                     .header("Access-Control-Allow-Origin", "*")
@@ -94,14 +90,8 @@ public class BeaconResource {
                             "GET, POST, PUT, DELETE, OPTIONS, HEAD")
                     .build();
         }
-        
-        String json = OBJECT_WRITER.writeValueAsString(goedeBeacon);
-        
-        
-        
-        
-        
-        return Response.ok(json, MediaType.APPLICATION_JSON)
+
+        return Response.ok(returnBeacon, MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods",
                         "GET, POST, PUT, DELETE, OPTIONS, HEAD")
@@ -119,25 +109,26 @@ public class BeaconResource {
         return db.addBeacon(beacon);
 
     }
-    
-        /**
+
+    /**
      * Put method for beacons
+     *
      * @param beacon
-     * @return 
+     * @return
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Beacon putBeacon(Beacon beacon) {
-        System.out.println("Beacon " + beacon);
+        System.out.println("Beacon " + beacon.Name);
         return db.putBeacon(beacon);
 
     }
 
     @DELETE
-    @Path("{description}")
+    @Path("{Description}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBeacon(@PathParam("description") String Description) {
+    public Response deleteBeacon(@PathParam("Description") String Description) {
         return Response.ok(db.deleteBeacon(Description), MediaType.APPLICATION_JSON)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods",

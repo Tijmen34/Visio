@@ -47,7 +47,6 @@ public class DatabaseConn {
 //        System.out.println(json);
 //        System.out.println(findDocsInColl("beacon"));
 //    }
-    
     public Beacon addBeacon(Beacon b) {
         System.out.println("add beacon before" + b);
         Document newBeaconDoc = new Document("Name", b.getName())
@@ -86,9 +85,19 @@ public class DatabaseConn {
         poiCol.insertOne(newPoiDoc);
         return p;
     }
-    
-    
-        public Beacon putBeacon(Beacon b){
+
+    public String getBeacon(String name) throws IOException {
+        FindIterable returnBeacon = beaconCollection.find(eq("Name", name));
+        ObjectWriter OBJECT_WRITER = new ObjectMapper().writer()
+                .withDefaultPrettyPrinter();
+
+        String json = OBJECT_WRITER.writeValueAsString(returnBeacon);
+
+        return json;
+
+    }
+
+    public Beacon putBeacon(Beacon b) {
         System.out.println("change old beacon" + b);
         MongoCollection<Document> beaconCollection2 = database.getCollection("beaconAmsterdam");
         Document changeBeaconDoc = new Document("Name", b.getName())
@@ -98,7 +107,7 @@ public class DatabaseConn {
                 .append("Latitude", b.getLatitude())
                 .append("Longitude", b.getLongitude());
         beaconCollection2.replaceOne(eq("Name", b.getName()), changeBeaconDoc);
-        System.out.println("change new beacon "+ b);
+        System.out.println("change new beacon " + b);
 
         return b;
     }
@@ -125,17 +134,10 @@ public class DatabaseConn {
 
     }
 
-//    public long FItoINT(MongoCollection k){
-//        long totalFilteredRecords = k.count();
-//        return totalFilteredRecords;
-//    }
-    public DeleteResult deleteBeacon(String description) {
+    public DeleteResult deleteBeacon(String Description) {
         BasicDBObject query = new BasicDBObject();
-        query.append("Description", description);
+        query.append("Description", Description);
         return beaconCollection.deleteOne(query);
     }
 
-    public static MongoCollection<Document> getBeaconCollection() {
-        return beaconCollection;
-    }
 }
