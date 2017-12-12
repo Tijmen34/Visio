@@ -4,9 +4,7 @@ import api.eyebeacon.model.Beacon;
 import api.eyebeacon.model.DatabaseConn;
 import api.eyebeacon.rest.model.ClientError;
 import com.mongodb.client.FindIterable;
-import io.swagger.oas.annotations.Operation;
 import com.mongodb.client.result.DeleteResult;
-import io.swagger.oas.annotations.Operation;
 import java.io.IOException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -41,8 +39,6 @@ public class BeaconResource {
      * @throws JSONException
      * @throws IOException
      */
-    @Operation(summary = "Get beacons",
-            description = "Get list of beacons")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBeaconList() throws JSONException, IOException {
@@ -75,8 +71,6 @@ public class BeaconResource {
     /**
      * Generate testing beacons
      */
-     @Operation(summary = "Post beacon",
-            description = "Post a beacon")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
